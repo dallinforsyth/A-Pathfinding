@@ -48,25 +48,25 @@ class Spot:
         return self.color == TURQUOISE
 
     def reset(self):
-        self.color == WHITE
+        self.color = WHITE
 
     def make_start(self):
-        self.color == ORANGE
+        self.color = ORANGE
 
     def make_closed(self):
-        self.color == RED
+        self.color = RED
 
     def make_open(self):
-        self.color == GREEN
+        self.color = GREEN
 
     def make_barrier(self):
-        self.color == BLACK
+        self.color = BLACK
 
     def make_end(self):
-        self.color == TURQUOISE
+        self.color = TURQUOISE
 
     def make_path(self):
-        self.color == PURPLE
+        self.color = PURPLE
 
     def draw(self, win):
         pygame.draw.rect(
@@ -223,7 +223,7 @@ def main(win, width):
                 spot.reset()
                 if spot == start:
                     start = None
-                if spot == end:
+                elif spot == end:
                     end = None
 
             if event.type == pygame.KEYDOWN:
