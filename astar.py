@@ -94,7 +94,7 @@ class Spot:
 def h(p1, p2):
     x1, y1 = p1
     x2, y2 = p2
-    return abs(x1 - x2) + abs(y1 - y2)
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
 def algorithm(draw, grid, start, end):
@@ -109,12 +109,12 @@ def algorithm(draw, grid, start, end):
 
     open_set_hash = {start}
 
-    while not open_set.empty:
+    while not open_set.empty():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        current = open-set.get()[2]
+        current = open_set.get()[2]
         open_set_hash.remove(current)
 
         if current == end:
@@ -128,7 +128,7 @@ def algorithm(draw, grid, start, end):
                 came_from[neighbor] = current
                 g_score[current] = temp_g_score
                 f_score[neighbor] = temp_g_score + \
-                    h(neighbor.get_pos(), end.get_pos)
+                    h(neighbor.get_pos(), end.get_pos())
                 if neighbor not in open_set_hash:
                     count += 1
                     open_set.put((f_score[neighbor], count, neighbor))
@@ -227,10 +227,11 @@ def main(win, width):
                     end = None
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and not started:
+                if event.key == pygame.K_SPACE and start and end:
                     for row in grid:
                         for spot in row:
-                            spot.update_neighbors()
+                            spot.update_neighbors(grid)
+
                     algorithm(lambda: draw(win, grid, ROWS, width),
                               grid, start, end)
 
