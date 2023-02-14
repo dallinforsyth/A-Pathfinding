@@ -78,13 +78,13 @@ class Spot:
         if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():
             self.neighbors.append(grid[self.row + 1][self.col])
         # up
-        if self.row < 0 and not grid[self.row - 1][self.col].is_barrier():
+        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier():
             self.neighbors.append(grid[self.row - 1][self.col])
         # right
         if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier():
             self.neighbors.append(grid[self.row][self.col + 1])
         # left
-        if self.col < 0 and not grid[self.row][self.col - 1].is_barrier():
+        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier():
             self.neighbors.append(grid[self.row][self.col - 1])
 
     def __lt__(self, other):
@@ -95,6 +95,13 @@ def h(p1, p2):
     x1, y1 = p1
     x2, y2 = p2
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+
+def reconstruct_path(came_from, current, draw):
+    while current in came_from:
+        current = came_from[current]
+        current.make_path()
+        draw()
 
 
 def algorithm(draw, grid, start, end):
@@ -118,7 +125,8 @@ def algorithm(draw, grid, start, end):
         open_set_hash.remove(current)
 
         if current == end:
-            pass  # make path
+            reconstruct_path(came_from, end, draw)
+            end.make_end()
             return True
 
         for neighbor in current.neighbors:
@@ -126,7 +134,7 @@ def algorithm(draw, grid, start, end):
 
             if temp_g_score < g_score[neighbor]:
                 came_from[neighbor] = current
-                g_score[current] = temp_g_score
+                g_score[neighbor] = temp_g_score
                 f_score[neighbor] = temp_g_score + \
                     h(neighbor.get_pos(), end.get_pos())
                 if neighbor not in open_set_hash:
@@ -134,6 +142,7 @@ def algorithm(draw, grid, start, end):
                     open_set.put((f_score[neighbor], count, neighbor))
                     open_set_hash.add(neighbor)
                     neighbor.make_open()
+
         draw()
 
         if current != start:
@@ -234,6 +243,11 @@ def main(win, width):
 
                     algorithm(lambda: draw(win, grid, ROWS, width),
                               grid, start, end)
+
+                if event.key == pygame.K_c:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
 
     pygame.quit()
 
