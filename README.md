@@ -16,8 +16,9 @@
 https://user-images.githubusercontent.com/122250064/219143200-c0c93bbe-1224-48fa-af12-d7af6f30768a.mov
 
 ## Running the program
-- Once you have cloned this feel free to open in your choice of code editor app
-- Run it in your code editor app
+- Once you have cloned this, feel free to open in your choice of code editor app.
+- Run it in your code editor app.
+- If that dose not work your most likely missing pygame. Installing this is as simple as placing ```pip3 install pygame``` on mac, or ```pip install pygame``` on windows, into your terminal. Then run it in your code editor app again. 
 - Your first right click will always place the start node, second will place your end node, finally it will place your barriers. 
 - If at anypoint you would like to remove a node placed. Use your left click, and you may place it again with a right click.
 - Then if you are satisfied with your placements, press spacebar to run the program.
