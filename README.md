@@ -1,5 +1,5 @@
 # A* Pathfinding 
- - This was built with python as well as pygame & PriorityQueue
+ - built in python using the pygame and PriorityQueue modules
  - The first step was calculating the path the program would use, with the basic F (total cost of the trip), G (distance from the start node), and H (estimated distance of the total trip to the end node) values. This was achievable.
 - Next was establishing the relationship between the current node and those next to it. The current node would look at its neighbors in a plus formation and see which node had the lowest cost value. Once determined which path would cost the least, that is the way it moves.
 - The two distance metrics in machine learning that I considered were the Manhattan and Euclidean. Manhattan distance did not work well with diagonal lines, therefore the obvious choice for me was Euclidean distance.
